@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
@@ -12,7 +11,13 @@ import javax.swing.table.DefaultTableModel;
 
 public class ViewData extends JFrame {
 
+    /* 
+      Membuat variabel "baris" untuk menyimpan baris ke berapa yang dipilih saat 
+      user memilih salah satu data yang ada di tabel 
+     */
     Integer baris;
+
+    // Membuat variabel "daftarMahasiswa" untuk menyimpan data mahasiswa yg diambil dari DB.
     List<Mahasiswa> daftarMahasiswa = new ArrayList<>();
 
     // Menginisiasi komponen
@@ -82,7 +87,8 @@ public class ViewData extends JFrame {
         tombolTambah.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Tambah");
+                dispose();
+                new InputData();
             }
         });
 
@@ -114,7 +120,7 @@ public class ViewData extends JFrame {
                          */
                         Connector conn = new Connector();
                         conn.delete(id);
-                        
+
                         JOptionPane.showMessageDialog(null, "Berhasil menghapus data.");
 
                         dispose();

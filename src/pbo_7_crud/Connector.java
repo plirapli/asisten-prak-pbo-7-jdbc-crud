@@ -117,7 +117,7 @@ public class Connector {
     }
     
     // Method untuk mengupdate (mengedit) suatu data mahasiswa
-    public void update(String nama, String nim, int id) {
+    public void update(int id, String nama, String nim) {
         try {
             // Perintah query disimpan ke dalam variabel "query"
             String query = "UPDATE mahasiswa SET nama=?, nim=? WHERE id=?;";

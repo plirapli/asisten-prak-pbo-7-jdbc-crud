@@ -8,18 +8,18 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-public class InputData extends JFrame {
+public class EditData extends JFrame {
 
-    JLabel header = new JLabel("Input Mahasiswa");
+    JLabel header = new JLabel("Edit Mahasiswa");
     JLabel labelInputNama = new JLabel("Nama");
     JLabel labelInputNIM = new JLabel("NIM");
     JTextField inputNama = new JTextField();
     JTextField inputNIM = new JTextField();
-    JButton tombolTambah = new JButton("Tambah Mahasiswa");
+    JButton tombolEdit = new JButton("Edit Mahasiswa");
     JButton tombolKembali = new JButton("Kembali");
 
-    public InputData() {
-        setTitle("Daftar Mahasiswa");
+    public EditData(int id, String nama, String nim) {
+        setTitle("Edit Mahasiswa");
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -31,7 +31,7 @@ public class InputData extends JFrame {
         add(labelInputNIM);
         add(inputNama);
         add(inputNIM);
-        add(tombolTambah);
+        add(tombolEdit);
         add(tombolKembali);
 
         header.setBounds(20, 8, 440, 24);
@@ -40,7 +40,10 @@ public class InputData extends JFrame {
         labelInputNIM.setBounds(20, 96, 440, 24);
         inputNIM.setBounds(18, 120, 440, 36);
         tombolKembali.setBounds(20, 160, 215, 40);
-        tombolTambah.setBounds(240, 160, 215, 40);
+        tombolEdit.setBounds(240, 160, 215, 40);
+        
+        inputNama.setText(nama);
+        inputNIM.setText(nim);
 
         /* 
           Memberikan event handling untuk tombol kembali,
@@ -54,7 +57,7 @@ public class InputData extends JFrame {
             }
         });
 
-        tombolTambah.addActionListener(new ActionListener() {
+        tombolEdit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -72,10 +75,10 @@ public class InputData extends JFrame {
                     
                     // Menjalankan update data mahasiswa
                     Connector conn = new Connector();
-                    conn.insert(nama, nim);
+                    conn.update(id, nama, nim);
                     
-                    // Menampilkan pop-up ketika berhasil menambah data
-                    JOptionPane.showMessageDialog(null, "Berhasil menambahkan data.");
+                    // Menampilkan pop-up ketika berhasil mengedit data
+                    JOptionPane.showMessageDialog(null, "Berhasil mengedit data.");
                     
                     // Terakhir, program akan pindah ke halaman ViewData()
                     dispose();

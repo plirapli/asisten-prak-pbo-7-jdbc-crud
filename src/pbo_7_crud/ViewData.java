@@ -87,6 +87,7 @@ public class ViewData extends JFrame {
         tombolTambah.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Ketika tombol tambah diklik, maka program akan berpindah ke halaman InputData()
                 dispose();
                 new InputData();
             }
@@ -96,7 +97,23 @@ public class ViewData extends JFrame {
         tombolEdit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Edit");
+                // Mengecek apakah ada baris di dalam tabel yang dipilih atau tidak
+                if (baris != null) {
+                    // Mengambil id dan nama berdasarkan baris yang dipilih
+                    Integer id = (int) table.getValueAt(baris, 0);
+                    String nama = table.getValueAt(baris, 1).toString();
+                    String nim = table.getValueAt(baris, 2).toString();
+                    
+                    /* 
+                      Ketika tombol edit diklik, maka program akan berpindah ke 
+                      halaman EditData() dengan membawa id, nama, dan nim untuk
+                      diberikan ke halaman EditData()
+                    */
+                    dispose();
+                    new EditData(id, nama, nim);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Data belum dipilih.");
+                }
             }
         });
 
@@ -104,15 +121,21 @@ public class ViewData extends JFrame {
         tombolHapus.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Mengecek apakah ada baris di dalam tabel yang dipilih atau tidak
                 if (baris != null) {
+                    // Mengambil id dan nama berdasarkan baris yang dipilih
                     Integer id = (int) table.getValueAt(baris, 0);
                     String nama = table.getValueAt(baris, 1).toString();
 
-                    int input = JOptionPane.showConfirmDialog(null,
-                            "Hapus " + nama + "?",
-                            "Hapus Mahasiswa",
-                            JOptionPane.YES_NO_OPTION);
-
+                    // Membuat Pop-Up untuk mengonfirmasi apakah ingin menghapus data
+                    int input = JOptionPane.showConfirmDialog(
+                            null, 
+                            "Hapus " + nama + "?", 
+                            "Hapus Mahasiswa", 
+                            JOptionPane.YES_NO_OPTION
+                    );
+                    
+                    // Jika user memilih opsi "yes", maka hapus data.
                     if (input == 0) {
                         /* 
                       Memanggil method delete() untuk menghaous data dari DB
